@@ -1,0 +1,36 @@
+// Fondo de la vitrina: 3 aros marinos concéntricos + medallón central.
+// SVG inline (sin requests, una sola capa estática, costo cero en animación).
+// El medallón se centró exacto (cx 562.5, en el archivo venía en 552.5) y
+// conserva su color de Figma #FCFFF7.
+
+export function ProductsBackdrop({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 1124 1124"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M1025 562.5C1025 817.932 817.932 1025 562.5 1025C307.068 1025 100 817.932 100 562.5C100 307.068 307.068 100 562.5 100C817.932 100 1025 307.068 1025 562.5Z"
+        strokeWidth="8"
+        stroke="#FFF4E3"
+        strokeOpacity="0.35"
+      />
+      <path
+        d="M1120 562C1120 870.175 870.175 1120 562 1120C253.825 1120 4 870.175 4 562C4 253.825 253.825 4 562 4C870.175 4 1120 253.825 1120 562Z"
+        strokeWidth="8"
+        stroke="#FFF4E3"
+        strokeOpacity="0.35"
+      />
+      <path
+        d="M912 562.5C912 755.524 755.524 912 562.5 912C369.476 912 213 755.524 213 562.5C213 369.476 369.476 213 562.5 213C755.524 213 912 369.476 912 562.5Z"
+        strokeWidth="8"
+        stroke="#FFF4E3"
+        strokeOpacity="0.35"
+      />
+      <circle cx="562.5" cy="562.5" r="273.5" fill="#FCFFF7" />
+    </svg>
+  );
+}

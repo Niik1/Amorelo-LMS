@@ -1,0 +1,50 @@
+import { Skeleton } from "@/components/ui/skeleton";
+
+export default function AdminReclamacionesLoading() {
+  return (
+    <main className="flex w-full flex-1 flex-col gap-6 p-6 sm:p-8 animate-in fade-in-50 duration-200">
+      {/* Banner de Reclamaciones */}
+      <div className="relative overflow-hidden rounded-2xl bg-[#1e3a8a]/90 p-5 text-white shadow-sm sm:p-6">
+        <div className="flex items-center gap-4">
+          <Skeleton className="size-12 rounded-xl bg-white/20 shrink-0" />
+          <div className="flex flex-col gap-1.5 flex-1">
+            <Skeleton className="h-6 w-60 bg-white/30 rounded-md sm:h-7" />
+            <Skeleton className="h-3.5 w-full max-w-md bg-white/20 rounded-md" />
+          </div>
+        </div>
+      </div>
+
+      {/* Barra de Filtros */}
+      <div className="rounded-2xl border bg-card p-5 shadow-xs flex flex-col gap-4 lg:flex-row lg:items-center">
+        <Skeleton className="h-10 w-full lg:max-w-xs rounded-xl" />
+        <div className="flex flex-wrap gap-2 lg:ml-auto">
+          <Skeleton className="h-9 w-20 rounded-full" />
+          <Skeleton className="h-9 w-24 rounded-full" />
+        </div>
+      </div>
+
+      {/* Tabla de Reclamos */}
+      <div className="overflow-hidden rounded-2xl border bg-card shadow-xs">
+        <div className="border-b bg-muted/40 p-4">
+          <div className="flex items-center justify-between">
+            <Skeleton className="h-4 w-32 rounded-md" />
+            <Skeleton className="h-4 w-20 rounded-md" />
+          </div>
+        </div>
+        <div className="divide-y">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="flex items-center justify-between p-4 gap-4">
+              <div className="space-y-1.5 flex-1">
+                <Skeleton className="h-4 w-36 rounded-md font-mono" />
+                <Skeleton className="h-3.5 w-52 rounded-md" />
+              </div>
+              <Skeleton className="h-4 w-28 rounded-md hidden md:block" />
+              <Skeleton className="h-6 w-24 rounded-full" />
+              <Skeleton className="size-8 rounded-lg shrink-0" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </main>
+  );
+}

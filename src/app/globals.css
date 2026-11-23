@@ -1,0 +1,415 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* Marca pública real (auditoría 2026-10: conteo de usos en src). */
+  --color-brand: var(--brand);
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-sky: var(--sky);
+  --color-ink: var(--ink);
+  --color-pink: var(--pink);
+  --color-lilac: var(--lilac);
+  --color-heading: var(--heading);
+  --color-canvas: var(--canvas);
+  --color-text-heading: var(--text-heading);
+  --color-text-body: var(--text-body);
+  --color-bg-alt: var(--bg-alt);
+  /* Panel admin + estado del live (módulo Lives) */
+  --color-admin-bg: var(--admin-bg);
+  --color-icon-accent: var(--icon-accent);
+  --color-icon-accent-soft: var(--icon-accent-soft);
+  --color-live-tint: var(--live-tint);
+  --color-live-line: var(--live-line);
+  --color-live-soft: var(--live-soft);
+  --color-live-dot: var(--live-dot);
+  --color-live-ink: var(--live-ink);
+  --color-live-solid: var(--live-solid);
+  --color-live-solid-hover: var(--live-solid-hover);
+  --color-live-chip: var(--live-chip);
+  --color-live-chip-ink: var(--live-chip-ink);
+  --color-live-best: var(--live-best);
+  --color-live-best-ink: var(--live-best-ink);
+  --color-ok-soft: var(--ok-soft);
+  --color-ok-ink: var(--ok-ink);
+  --color-warn-soft: var(--warn-soft);
+  --color-warn-ink: var(--warn-ink);
+  --font-sans: var(--font-hanken);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-bricolage);
+  --font-subtitle: var(--font-hanken);
+  /* Precio público: Inter (se carga en el layout raíz). */
+  --font-price: var(--font-inter), system-ui, sans-serif;
+  /* Tipografía interna del panel (Inter, solo layout admin + login). */
+  --font-admin: var(--font-inter), system-ui, sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* === Marca pública (colores reales en uso) === */
+  --brand: #1a73e8; /* azul marca: hero, footer, CTAs */
+  --navy: #1f3a6e; /* títulos, botones oscuros */
+  --navy-deep: #16294f; /* hover de botones navy */
+  --paper: #fff4e3; /* fondo base del main público + superficies claras */
+  --sky: #e7f0fe; /* cards celestes (precio, faq) */
+  --ink: #38241a; /* texto cuerpo */
+  --bg-alt: #f7f9ff; /* secciones alternas */
+
+  /* === Panel admin y Aula Virtual (Modo Claro) === */
+  /* Fondo de página de todos los módulos del panel y aula virtual. Las tarjetas siguen
+     en blanco (--card), así el contraste separa contenido de chrome. */
+  --canvas: #f0f4f8;
+  --admin-bg: #f0f4f8;
+  --heading: #0f172a; /* Negro pizarra profundo para títulos en modo claro */
+  --text-heading: #0f172a;
+  /* Iconos de módulos en panel admin y aula (Modo Claro: azul institucional profundo) */
+  --icon-accent: #1e3a8a;
+  --icon-accent-soft: rgba(30, 58, 138, 0.08);
+
+  /* === Estado del live (módulo Lives) ===
+     Dos estados con la misma anatomía: apagado usa los tokens neutros
+     (--card / --muted), encendido usa esta paleta cálida. */
+  --live-tint: #fff7f7; /* fondo de la tarjeta con live activo */
+  --live-line: #fbd5d5; /* borde de la tarjeta y divisor vertical */
+  --live-soft: #fde8e8; /* tile del ícono + pill "En vivo" */
+  --live-dot: #e02424; /* punto de estado + relleno de la barra */
+  --live-ink: #c81e1e; /* texto rojo sobre --live-soft */
+  --live-solid: #dc2626; /* botón "Apagar live" */
+  --live-solid-hover: #b91c1c; /* hover del botón */
+  --live-chip: #ede9fe; /* chips de clics por botón */
+  --live-chip-ink: #4f46e5; /* texto de los chips */
+  --live-best: #fdf1c7; /* pill "Mejor" del historial */
+  --live-best-ink: #8a6516; /* texto de la pill "Mejor" */
+  --ok-soft: #e8f7ee; /* tile del KPI "Promedio por live" */
+  --ok-ink: #15803d; /* ícono sobre --ok-soft */
+
+  /* === Cupones: vigencia con fecha === */
+  --warn-soft: #fdf1c7; /* chip "Hasta 30 nov. 2026" */
+  --warn-ink: #8a6516; /* texto e ícono sobre --warn-soft */
+
+  /* === Dashboard: clics por botón ===
+     Paleta categórica por índice (no por nombre): un botón viejo que no esté
+     en BOTONES_CLIC igual recibe un color legible. */
+  --chart-b1: #2563eb;
+  --chart-b2: #7c3aed;
+  --chart-b3: #0ea5e9;
+  --chart-b4: #14b8a6;
+  --chart-b5: #f59e0b;
+  --chart-b6: #ec4899;
+  --chart-b7: #64748b;
+
+  /* Pasteles de apoyo (cards de cursos, carrusel de videos) */
+  --pink: #f6a5c0;
+  --lilac: #b9a2e8;
+  --cream: #fff3c9;
+
+  /* Textos */
+  --text-heading: var(--navy);
+  --text-body: var(--ink);
+
+  /* Mono real (antes apuntaba a una fuente inexistente) */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* === Mapeo a tokens funcionales shadcn (panel + ui/*) === */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.823);
+  --primary: #1e3a8a;
+  --primary-foreground: #ffffff;
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.705 0.015 286.067);
+  /* Gráficos del dashboard del panel */
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-primary: oklch(0.546 0.245 262.881);
+  --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-ring: oklch(0.705 0.015 286.067);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+
+  /* === Landing Pública (Modo Claro) === */
+  --public-page-bg: #f8fafc;
+  --public-page-gradient: radial-gradient(ellipse 100% 65% at 50% 0%, #e2e8f0 0%, #edf2f7 35%, #f1f5f9 70%, #f8fafc 100%);
+  --public-card-bg: rgba(255, 255, 255, 0.95);
+  --public-card-border: #e2e8f0;
+  --public-text-primary: #0f172a;
+  --public-text-muted: #475569;
+  --public-nav-bg: rgba(255, 255, 255, 0.85);
+  --public-nav-border: rgba(226, 232, 240, 0.85);
+  --public-nav-text: #0f172a;
+
+  /* Footer Público (Modo Claro) */
+  --public-footer-bg: #1a73e8;
+  --public-footer-text: #ffffff;
+  --public-footer-text-muted: rgba(255, 255, 255, 0.85);
+  --public-footer-wordmark: #ffffff;
+  --public-footer-input-bg: #ffffff;
+  --public-footer-input-text: #38241a;
+  --public-footer-input-placeholder: rgba(56, 36, 26, 0.55);
+  --public-footer-input-btn-bg: #1f3a6e;
+  --public-footer-input-btn-text: #ffffff;
+  --public-footer-social-bg: #ffffff;
+  --public-footer-social-icon: #1a73e8;
+  --public-footer-social-hover: #f1f5f9;
+  --public-footer-border: rgba(255, 255, 255, 0.15);
+}
+
+.dark {
+  color-scheme: dark;
+  --canvas: #020617;
+  --admin-bg: #020617;
+  --heading: #ffffff;
+  --text-heading: #ffffff;
+  /* Iconos de módulos en panel admin y aula (Modo Oscuro: azul eléctrico luminoso) */
+  --icon-accent: #60a5fa;
+  --icon-accent-soft: rgba(96, 165, 250, 0.18);
+  --background: #020617;
+  --foreground: #ffffff;
+  --card: #0f172a;
+  --card-foreground: #ffffff;
+  --popover: #0f172a;
+  --popover-foreground: #ffffff;
+  --primary: #1e3a8a;
+  --primary-foreground: #ffffff;
+  --secondary: #1e293b;
+  --secondary-foreground: #ffffff;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #1e293b;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: oklch(0.552 0.016 285.938);
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.623 0.214 259.815);
+  --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+  --sidebar-accent: oklch(0.274 0.006 286.033);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.552 0.016 285.938);
+
+  /* === Landing Pública (Modo Oscuro) === */
+  --public-page-bg: #070e24;
+  --public-page-gradient: radial-gradient(ellipse 100% 65% at 50% 0%, #1d387d 0%, #142658 35%, #0b1435 70%, #070e24 100%);
+  --public-card-bg: rgba(18, 27, 70, 0.85);
+  --public-card-border: #2a3e82;
+  --public-text-primary: #ffffff;
+  --public-text-muted: rgba(191, 219, 254, 0.75);
+  --public-nav-bg: rgba(12, 35, 86, 0.80);
+  --public-nav-border: rgba(255, 255, 255, 0.10);
+  --public-nav-text: #ffffff;
+
+  /* Footer Público (Modo Oscuro) */
+  --public-footer-bg: #07112f;
+  --public-footer-text: #ffffff;
+  --public-footer-text-muted: rgba(255, 255, 255, 0.85);
+  --public-footer-wordmark: #ffffff;
+  --public-footer-input-bg: #122255;
+  --public-footer-input-text: #ffffff;
+  --public-footer-input-placeholder: rgba(255, 255, 255, 0.50);
+  --public-footer-input-btn-bg: #ffffff;
+  --public-footer-input-btn-text: #07112f;
+  --public-footer-social-bg: #122255;
+  --public-footer-social-icon: #ffffff;
+  --public-footer-social-hover: #1a3175;
+  --public-footer-border: rgba(255, 255, 255, 0.10);
+}
+
+.force-light {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.823);
+  --primary: #1e3a8a;
+  --primary-foreground: #ffffff;
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.705 0.015 286.067);
+  --icon-accent: #1e3a8a;
+  --icon-accent-soft: rgba(30, 58, 138, 0.08);
+  color-scheme: light !important;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-hanken), system-ui, sans-serif;
+    font-weight: 600;
+  }
+  html {
+    @apply scroll-smooth font-sans;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-bricolage), system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Títulos dentro del admin: Inter (pisan el Bricolage de la base pública).
+   Sin layer para ganarle a `@layer base`. */
+.font-admin h1,
+.font-admin h2,
+.font-admin h3 {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: normal;
+}
+
+/* Levitación de las tarjetas laterales del hero: sube 8px y vuelve, en
+   loop infinito. Arranca y termina en translateY(0) para que no haya salto.
+   La rotación de las tarjetas vive en la propiedad `rotate` (Tailwind v4),
+   así que animar `transform` no la pisa. Clase usada en HeroSideImage. */
+@keyframes hero-side-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-hero-side {
+  animation: hero-side-float 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-side {
+    animation: none;
+  }
+}
+
+/* Flotación lenta del arreglo en el hero (capa 2 de HeroGallery).
+   La duración vive en FLOAT_MS dentro de hero-gallery.tsx. */
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(1.2deg);
+  }
+}
+
+/* Entrada en cascada de las opciones del menú mobile (de arriba hacia
+   abajo). Cada ítem lleva `animation-delay` en línea según su índice. */
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-menu-item-in {
+  animation: menu-item-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Marquesina infinita de reseñas (pista duplicada, loop en -50%). */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee-x 45s linear infinite;
+}
+
+/* En mobile va más lenta para que dé tiempo a leer cada reseña. */
+@media (max-width: 639px) {
+  .animate-marquee {
+    animation-duration: 80s;
+  }
+}
+
+/* (Las nubecitas de estadísticas con órbita se eliminaron a pedido; si
+   vuelven, sus keyframes vivían acá.) */
